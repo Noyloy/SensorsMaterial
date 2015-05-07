@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">SensorsMaterial</string>
+
+
+    <string name="title_section1">Accelerometer</string>
+    <string name="title_section2">Gravity</string>
+    <string name="title_section3">Gyroscope</string>
+    <string name="title_section4">Linear</string>
+
+    <string name="x_str">X</string>
+    <string name="y_str">Y</string>
+    <string name="z_str">Z</string>
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="action_settings">Settings</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
