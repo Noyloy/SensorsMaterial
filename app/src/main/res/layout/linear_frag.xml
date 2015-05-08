@@ -15,15 +15,18 @@
             android:textSize="40sp"
             android:layout_weight="1"
             android:background="#CFD8DC"
-            android:text="@string/x_str"/>
+            android:text="@string/x_str"
+            android:width="50dp"
+            android:minWidth="50dp"
+            android:maxWidth="50dp"></TextView>
         <TextView
             android:id="@+id/x_l_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="40sp"
             android:background="#ffa9b2b6"
-            android:layout_weight="1" />
+            android:layout_weight="6" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,15 +41,18 @@
             android:textSize="40sp"
             android:layout_weight="1"
             android:background="#9E9E9E"
-            android:text="@string/y_str"/>
+            android:text="@string/y_str"
+            android:width="50dp"
+            android:minWidth="50dp"
+            android:maxWidth="50dp"/>
         <TextView
             android:id="@+id/y_l_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="40sp"
             android:background="#ff808080"
-            android:layout_weight="1"/>
+            android:layout_weight="6"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,14 +67,17 @@
             android:textSize="40sp"
             android:layout_weight="1"
             android:background="#e5d4e2d2"
-            android:text="@string/z_str"/>
+            android:text="@string/z_str"
+            android:width="50dp"
+            android:minWidth="50dp"
+            android:maxWidth="50dp"/>
         <TextView
             android:id="@+id/z_l_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="40sp"
             android:background="#e5bbc9b9"
-            android:layout_weight="1" />
+            android:layout_weight="6" />
     </LinearLayout>
 </LinearLayout>

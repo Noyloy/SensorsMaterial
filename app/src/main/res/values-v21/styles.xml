@@ -3,9 +3,9 @@
     <style name="AppTheme" parent="android:Theme.Material.Light">
         <item name="android:colorPrimary">#607D8B</item>
         <item name="android:colorPrimaryDark">#455A64</item>
-        <item name="android:colorAccent">#009688</item>
+        <item name="android:colorAccent">#1DE9B6</item>
         <item name="android:textColorPrimary">#FFFFFF</item>
-        <item name="android:divider">#B6B6B6</item>
+        <item name="android:divider">#263238</item>
         <item name="android:navigationBarColor">#455A64</item>
     </style>
 </resources>

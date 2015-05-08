@@ -12,10 +12,10 @@ import android.widget.TextView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Grav extends Fragment {
+public class Linear extends Fragment {
 
 
-    public Grav() {
+    public Linear() {
         // Required empty public constructor
     }
 
@@ -23,7 +23,7 @@ public class Grav extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.grav_frag, container, false);
+        return inflater.inflate(R.layout.linear_frag, container, false);
     }
 
 

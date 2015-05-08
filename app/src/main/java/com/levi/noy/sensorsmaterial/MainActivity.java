@@ -85,88 +85,79 @@ public class MainActivity extends Activity implements ActionBar.TabListener,Sens
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
         // When the given tab is selected, switch to the corresponding page in
         // the ViewPager.
-
         mViewPager.setCurrentItem(tab.getPosition());
         switch (mViewPager.getCurrentItem()){
             case 0:
-                Log.d("DEBUG", "now accel");
                 // accelerometer
+                setContentView(R.layout.fragment_main);
+                mxAccelTV = (TextView)findViewById(R.id.x_a_tv);
+                myAccelTV = (TextView)findViewById(R.id.y_a_tv);
+                mzAccelTV = (TextView)findViewById(R.id.z_a_tv);
                 mSensorManager.unregisterListener(MainActivity.this);
                 mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
                 mSensorManager.registerListener(MainActivity.this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
                 break;
             case 1:
                 // gravity
-
+                setContentView(R.layout.grav_frag);
+                mxGravTV = (TextView)findViewById(R.id.x_g_tv);
+                myGravTV = (TextView)findViewById(R.id.y_g_tv);
+                mzGravTV = (TextView)findViewById(R.id.z_g_tv);
                 mSensorManager.unregisterListener(MainActivity.this);
                 mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
                 mSensorManager.registerListener(MainActivity.this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
                 break;
             case 2:
                 // Gyro
-
-
+                setContentView(R.layout.gyro_frag);
+                mxGyroTV = (TextView)findViewById(R.id.x_gy_tv);
+                myGyroTV = (TextView)findViewById(R.id.y_gy_tv);
+                mzGyroTV = (TextView)findViewById(R.id.z_gy_tv);
                 mSensorManager.unregisterListener(MainActivity.this);
                 mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
                 mSensorManager.registerListener(MainActivity.this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
                 break;
             case 3:
                 // linear
-
-
+                setContentView(R.layout.linear_frag);
+                mxLinearTV = (TextView)findViewById(R.id.x_l_tv);
+                myLinearTV = (TextView)findViewById(R.id.y_l_tv);
+                mzLinearTV = (TextView)findViewById(R.id.z_l_tv);
                 mSensorManager.unregisterListener(MainActivity.this);
                 mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
                 mSensorManager.registerListener(MainActivity.this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
                 break;
         }
-
     }
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        fragmentTransaction.commit();
     }
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        fragmentTransaction.commit();
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        PlaceholderFragment frag = null;
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
-            setContentView(R.layout.fragment_main);
-            mxAccelTV = (TextView)findViewById(R.id.x_a_tv);
-            myAccelTV = (TextView)findViewById(R.id.y_a_tv);
-            mzAccelTV = (TextView)findViewById(R.id.z_a_tv);
             mxAccelTV.setText(event.values[0]+"");
             myAccelTV.setText(event.values[1]+"");
             mzAccelTV.setText(event.values[2]+"");
         }
         else if (event.sensor.getType() == Sensor.TYPE_GRAVITY){
-            setContentView(R.layout.grav_frag);
-            mxGravTV = (TextView)findViewById(R.id.x_g_tv);
-            myGravTV = (TextView)findViewById(R.id.y_g_tv);
-            mzGravTV = (TextView)findViewById(R.id.z_g_tv);
-
             mxGravTV.setText(event.values[0]+"");
             myGravTV.setText(event.values[1]+"");
             mzGravTV.setText(event.values[2] + "");
         }
         else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE){
-            setContentView(R.layout.gyro_frag);
-            mxGyroTV = (TextView)findViewById(R.id.x_gy_tv);
-            myGyroTV = (TextView)findViewById(R.id.y_gy_tv);
-            mzGyroTV = (TextView)findViewById(R.id.z_gy_tv);
-
             mxGyroTV.setText(event.values[0]+"");
             myGyroTV.setText(event.values[1]+"");
             mzGyroTV.setText(event.values[2] + "");
         }
         else if (event.sensor.getType() == Sensor.TYPE_LINEAR_ACCELERATION){
-            setContentView(R.layout.linear_frag);
-            mxLinearTV = (TextView)findViewById(R.id.x_l_tv);
-            myLinearTV = (TextView)findViewById(R.id.y_l_tv);
-            mzLinearTV = (TextView)findViewById(R.id.z_l_tv);
             mxLinearTV.setText(event.values[0]+"");
             myLinearTV.setText(event.values[1]+"");
             mzLinearTV.setText(event.values[2] + "");
@@ -185,6 +176,13 @@ public class MainActivity extends Activity implements ActionBar.TabListener,Sens
         mSensorManager.unregisterListener(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mSensorManager.registerListener(MainActivity.this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -196,10 +194,22 @@ public class MainActivity extends Activity implements ActionBar.TabListener,Sens
         }
 
         @Override
-        public PlaceholderFragment getItem(int position) {
+        public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            switch(position)
+            {
+                case 0:
+                    return new FragMain();
+                case 1:
+                    return new Grav();
+                case 2:
+                    return new Gyro();
+                case 3:
+                    return new Linear();
+                default:
+                    return new FragMain();
+            }
         }
 
         @Override
@@ -224,70 +234,4 @@ public class MainActivity extends Activity implements ActionBar.TabListener,Sens
             return null;
         }
     }
-
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-        private TextView xTV,yTV,zTV;
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            int pos = 0;
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
-            if (savedInstanceState != null) pos = savedInstanceState.getInt(ARG_SECTION_NUMBER, 0);
-            if (pos == 0) {
-                rootView = inflater.inflate(R.layout.fragment_main, container, false);
-                xTV = (TextView) rootView.findViewById(R.id.x_a_tv);
-                yTV = (TextView) rootView.findViewById(R.id.y_a_tv);
-                zTV = (TextView) rootView.findViewById(R.id.z_a_tv);
-            }
-            if (pos == 1) {
-                rootView = inflater.inflate(R.layout.grav_frag, container, false);
-                xTV = (TextView) rootView.findViewById(R.id.x_g_tv);
-                yTV = (TextView) rootView.findViewById(R.id.y_g_tv);
-                zTV = (TextView) rootView.findViewById(R.id.z_g_tv);
-            } else if (pos == 2) {
-                rootView = inflater.inflate(R.layout.gyro_frag, container, false);
-                xTV = (TextView) rootView.findViewById(R.id.x_gy_tv);
-                yTV = (TextView) rootView.findViewById(R.id.y_gy_tv);
-                zTV = (TextView) rootView.findViewById(R.id.z_gy_tv);
-            } else if (pos == 3) {
-                rootView = inflater.inflate(R.layout.linear_frag, container, false);
-                xTV = (TextView) rootView.findViewById(R.id.x_l_tv);
-                yTV = (TextView) rootView.findViewById(R.id.y_l_tv);
-                zTV = (TextView) rootView.findViewById(R.id.z_l_tv);
-            }
-            return rootView;
-        }
-        public void setTextViewText(float[] value){
-            xTV.setText(value[0]+"");
-            yTV.setText(value[1]+"");
-            zTV.setText(value[2]+"");
-        }
-    }
-
 }
